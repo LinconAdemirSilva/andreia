@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DescomplicaDOC - Consultoria Documental</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #27ae60;
+            --dark-gray: #2c3e50;
+            --light-gray: #ecf0f1;
+            --white: #ffffff;
+            --text-color: #2c3e50;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--white);
+        }
+
+
+
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-green), #2ecc71);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-green);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+
+
+        /* WhatsApp Flutuante */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            border-radius: 50px;
+            padding: 15px 20px;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.05);
+            color: white;
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Seções Gerais */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--primary-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #f8f9fa 0%, var(--white) 50%, #f1f3f4 100%);
+            text-align: center;
+            padding: 8rem 2rem 6rem;
+            margin-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            color: var(--dark-gray);
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), #2ecc71);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 3px solid var(--primary-green);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-green), #2ecc71);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .card h3 {
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .card p {
+            color: #5a6c7d;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Público-Alvo */
+        .publico-alvo {
+            background: var(--light-gray);
+        }
+
+        /* Quem Somos */
+        .quem-somos-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .pessoa-card {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .pessoa-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-green), #2ecc71);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        /* Serviços */
+        .servicos {
+            background: var(--light-gray);
+        }
+
+        .servicos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .servico-item {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-green);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .servico-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+        }
+
+        .servico-item h3 {
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .servico-item p {
+            color: #5a6c7d;
+            line-height: 1.6;
+        }
+
+        /* Como Funciona */
+        .processo-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-green), #2ecc71);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.4rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .step h3 {
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .step p {
+            color: #5a6c7d;
+            line-height: 1.6;
+        }
+
+        /* Valores */
+        .valores {
+            background: var(--light-gray);
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: var(--white);
+            margin-bottom: 1rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .faq-question {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            color: var(--primary-green);
+        }
+
+        .faq-question:hover {
+            background: #d5dbdb;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 200px;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-toggle.active {
+            transform: rotate(180deg);
+        }
+
+        /* Contato */
+        .contato-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contato-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contato-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contato-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-green), #2ecc71);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 12px rgba(39, 174, 96, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--dark-gray);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-gray);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .quem-somos-content,
+            .contato-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cards-grid,
+            .servicos-grid,
+            .processo-steps {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+
+            .whatsapp-float {
+                bottom: 10px;
+                right: 10px;
+                padding: 12px 15px;
+            }
+        }
+
+        /* Animações suaves */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#home" class="logo">
+                <div class="logo-icon">📄</div>
+                DescomplicaDOC
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#publico">Público</a></li>
+                <li><a href="#quem-somos">Quem Somos</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#como-funciona">Como Funciona</a></li>
+                <li><a href="#valores">Valores</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <button class="mobile-menu" onclick="toggleMenu()">☰</button>
+        </nav>
+    </header>
+
+    <!-- Botão WhatsApp Flutuante -->
+    <a href="https://wa.me/5511999999999?text=Olá! Gostaria de saber mais sobre os serviços da DescomplicaDOC." class="whatsapp-float">
+        💬 WhatsApp
+    </a>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Burocracia Sem Complicação</h1>
+        <p>Especialistas em descomplicar processos burocráticos com paciência, cuidado e transparência.</p>
+        <a href="#contato" class="btn-primary">Primeira Consulta Gratuita</a>
+    </section>
+
+    <!-- Público-Alvo -->
+    <section id="publico" class="publico-alvo">
+        <h2 class="section-title">Para Quem Trabalhamos</h2>
+        <div class="cards-grid">
+            <div class="card fade-in">
+                <div class="card-icon">👴</div>
+                <h3>Pessoas da Terceira Idade</h3>
+                <p>Apoiamos idosos com paciência e cuidado especial, facilitando todos os processos burocráticos necessários para o seu bem-estar e tranquilidade.</p>
+            </div>
+            <div class="card fade-in">
+                <div class="card-icon">🤝</div>
+                <h3>Pessoas com Dificuldades</h3>
+                <p>Oferecemos suporte personalizado para quem tem limitações ou dificuldades para resolver questões documentais sozinho.</p>
+            </div>
+            <div class="card fade-in">
+                <div class="card-icon">😵</div>
+                <h3>Perdidos na Burocracia</h3>
+                <p>Se você não sabe por onde começar ou se sente confuso com tantos documentos e processos, estamos aqui para guiá-lo passo a passo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quem Somos -->
+    <section id="quem-somos">
+        <h2 class="section-title">Quem Somos</h2>
+        <div class="quem-somos-content">
+            <div class="fade-in">
+                <h3>Nossa Missão</h3>
+                <p>Acreditamos que ninguém deveria se sentir perdido ou frustrado com burocracias. Nossa missão é transformar processos complexos em caminhos simples e claros, oferecendo apoio humano e especializado.</p>
+                <p>Trabalhamos com dedicação, transparência e, principalmente, com a paciência necessária para que cada cliente se sinta acolhido e compreendido durante todo o processo.</p>
+            </div>
+            <div class="pessoa-card fade-in">
+                <div class="pessoa-avatar">AS</div>
+                <h3>Andréia Santos</h3>
+                <p><strong>Fundadora e Consultora Principal</strong></p>
+                <p>Com mais de 10 anos de experiência em processos documentais, Andréia decidiu criar a DescomplicaDOC após perceber quantas pessoas se sentiam perdidas e desanimadas com a burocracia brasileira.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços -->
+    <section id="servicos" class="servicos">
+        <h2 class="section-title">Nossos Serviços</h2>
+        <div class="servicos-grid">
+            <div class="servico-item fade-in">
+                <h3>🏠 Questões Imobiliárias</h3>
+                <p>Escrituras, transferências, financiamentos, regularizações e toda documentação relacionada a imóveis.</p>
+            </div>
+            <div class="servico-item fade-in">
+                <h3>🏦 Processos Bancários</h3>
+                <p>Abertura de contas, empréstimos, financiamentos, renegociações e questões junto aos bancos.</p>
+            </div>
+            <div class="servico-item fade-in">
+                <h3>📋 Serviços Cartoriais</h3>
+                <p>Certidões, reconhecimentos, autenticações, registros e todos os serviços de cartório.</p>
+            </div>
+            <div class="servico-item fade-in">
+                <h3>🏛️ Órgãos Públicos</h3>
+                <p>INSS, Receita Federal, Prefeitura, DETRAN e outros órgãos governamentais.</p>
+            </div>
+            <div class="servico-item fade-in">
+                <h3>⚖️ Intermediação Profissional</h3>
+                <p>Contato com advogados, contadores e outros profissionais quando necessário.</p>
+            </div>
+            <div class="servico-item fade-in">
+                <h3>⚡ Agilização de Processos</h3>
+                <p>Acompanhamento e agilização de processos em andamento que estão travados.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona -->
+    <section id="como-funciona">
+        <h2 class="section-title">Como Funciona</h2>
+        <div class="processo-steps">
+            <div class="step fade-in">
+                <div class="step-number">1</div>
+                <h3>Conversa Inicial</h3>
+                <p>Conversamos para entender exatamente o que você precisa e suas dificuldades específicas.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-number">2</div>
+                <h3>Planejamento</h3>
+                <p>Criamos um plano claro com todos os passos necessários e prazos estimados.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-number">3</div>
+                <h3>Execução</h3>
+                <p>Colocamos a mão na massa e resolvemos tudo para você, mantendo-o informado sempre.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-number">4</div>
+                <h3>Entrega Organizada</h3>
+                <p>Entregamos tudo organizado e explicamos cada documento para sua tranquilidade.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Valores -->
+    <section id="valores" class="valores">
+        <h2 class="section-title">Nossos Valores</h2>
+        <div class="cards-grid">
+            <div class="card fade-in">
+                <div class="card-icon">⚖️</div>
+                <h3>Ética</h3>
+                <p>Trabalhamos sempre dentro da legalidade, com transparência total em nossos processos e valores.</p>
+            </div>
+            <div class="card fade-in">
+                <div class="card-icon">💎</div>
+                <h3>Honestidade</h3>
+                <p>Falamos sempre a verdade sobre prazos, custos e possibilidades, sem criar expectativas irreais.</p>
+            </div>
+            <div class="card fade-in">
+                <div class="card-icon">🤲</div>
+                <h3>Paciência</h3>
+                <p>Entendemos que cada pessoa tem seu tempo e suas dificuldades. Respeitamos isso em cada atendimento.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+        <h2 class="section-title">Perguntas Frequentes</h2>
+        <div class="faq-container">
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Quanto custam os serviços?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Os valores variam conforme a complexidade do caso. Oferecemos sempre uma primeira consulta gratuita para avaliar sua situação e apresentar um orçamento transparente, sem surpresas.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Vocês atendem em qual região?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Atendemos presencialmente na Grande São Paulo e também oferecemos atendimento online para todo o Brasil. Para casos que exigem presença física, temos uma rede de parceiros confiáveis.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Quanto tempo demora para resolver?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>O prazo varia conforme o tipo de processo e órgãos envolvidos. Durante nossa consulta inicial, estimamos um prazo realista baseado na nossa experiência. Mantemos você sempre informado sobre o andamento.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Preciso contratar um advogado também?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Nem sempre. Muitos processos burocráticos não exigem advogado. Quando necessário, temos parceiros de confiança e ajudamos na intermediação. Sempre orientamos sobre a real necessidade.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Meus documentos ficam seguros?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutamente. Trabalhamos com total sigilo e segurança. Seus documentos são tratados com máximo cuidado e devolvidos organizados ao final do processo. Temos protocolos rígidos de proteção de dados.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>E se algo der errado no processo?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Assumimos total responsabilidade pelos nossos serviços. Se houver algum erro da nossa parte, corrigimos sem custo adicional. Nossa experiência nos permite antecipar e evitar a maioria dos problemas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato">
+        <h2 class="section-title">Entre em Contato</h2>
+        <div class="contato-content">
+            <div class="contato-info fade-in">
+                <div class="contato-item">
+                    <div class="contato-icon">📞</div>
+                    <div>
+                        <h4>Telefone</h4>
+                        <p>(11) 99999-9999</p>
+                    </div>
+                </div>
+                <div class="contato-item">
+                    <div class="contato-icon">📧</div>
+                    <div>
+                        <h4>E-mail</h4>
+                        <p>contato@descomplicadoc.com.br</p>
+                    </div>
+                </div>
+                <div class="contato-item">
+                    <div class="contato-icon">📍</div>
+                    <div>
+                        <h4>Localização</h4>
+                        <p>São Paulo - SP<br>Atendimento presencial e online</p>
+                    </div>
+                </div>
+                <div class="contato-item">
+                    <div class="contato-icon">⏰</div>
+                    <div>
+                        <h4>Horário de Atendimento</h4>
+                        <p>Segunda a Sexta: 8h às 18h<br>Sábado: 8h às 12h</p>
+                    </div>
+                </div>
+            </div>
+            <form class="fade-in" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" id="telefone" name="telefone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="mensagem">Como podemos ajudar?</label>
+                    <textarea id="mensagem" name="mensagem" rows="4" required placeholder="Descreva brevemente sua situação ou dúvida..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Enviar Mensagem</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 DescomplicaDOC - Consultoria Documental</p>
+        <p><em>"Simplificando a burocracia com paciência e cuidado, um documento por vez."</em></p>
+    </footer>
+
+    <script>
+        // Menu Mobile
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Alto Contraste
+        // Função removida
+
+        // FAQ Toggle
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+            
+            answer.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Animação de Fade In
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Form Submit
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Obrigado pelo contato! Entraremos em contato em breve.');
+            event.target.reset();
+        }
+
+        // Event Listeners
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Fechar menu mobile ao clicar em link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
